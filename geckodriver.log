@@ -543,3 +543,6 @@ console.warn: SearchSettings: "get: No settings file exists, new profile?" (new 
 
 ###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
 
+1625430726331	geckodriver	INFO	Listening on 127.0.0.1:50426
+1625430726346	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "--marionette" "-foreground" "-no-remote" "-profile" "/var/folders/mw/wtlz2c3j6s3dvg2ph5_m30m00000gn/T/rust_mozprofileA4311s"
+1625430726682	Marionette	INFO	Marionette enabled
