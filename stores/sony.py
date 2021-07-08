@@ -9,7 +9,7 @@ def check_inventory():
     # Stock Checker standard, digital
     print("~Sony:")
 
-    ps5 = ["https://sonycentercy.com/playstation-5/2186-sony-playstation-5-0711719395003.html", "https://sonycentercy.com/playstation-5/2187-sony-playstation-5-digital-edition-0711719395102.html"]
+    ps5 = ["https://sonycentercy.com/playstation-5/2186-sony-playstation-5-0711719395003.html",    "https://sonycentercy.com/playstation-5/2187-sony-playstation-5-digital-edition-0711719395102.html"]
     flag = "Standard edition: "
 
     for item in ps5:
