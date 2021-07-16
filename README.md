@@ -1,6 +1,6 @@
 # Web Scraping to check if an item is in stock
 Script to check if an specific item (playstation 5) in web stores (using url) is in stock or not in Cyprus.
-To find playstation 5 in now days very dificult.
+To find playstation 5 in now days is very dificult.
 So i create a bot to check every 50 sec stock inventory of many online stores.
 When a ps5 is in stock the program sents notifications to phone using push over application.
 
