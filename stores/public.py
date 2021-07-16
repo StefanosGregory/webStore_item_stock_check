@@ -19,7 +19,7 @@ def check_inventory():
             response = requests.get(ps5_link + ps5[item]).json()
             stock = response['productInfo'][0]['stockRule']
 
-            if stock == "εξαντλήθηκε!":
+            if stock == "εξαντλήθηκε!" or stock == "προσωρινά εξαντλημένο":
                 print(ps5_names[item] + bcolors.FAIL + "Out of stock" + bcolors.RESET)
             else:
                 print(ps5_names[item] + bcolors.OK + "In stock at Public" + bcolors.RESET)
@@ -29,7 +29,7 @@ def check_inventory():
         except:
             print(ps5_names[item] + bcolors.WARNING + "Error searching for item" + bcolors.RESET)
             
-            notify("Error PS5 " + ps5_names[item] + " public")
+            # notify("Error PS5 " + ps5_names[item] + " public")
 
     print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
 
