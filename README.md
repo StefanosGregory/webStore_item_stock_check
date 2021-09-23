@@ -6,7 +6,7 @@ When a ps5 is in stock the program sents notifications to phone using push over 
 
 ## Installation
 
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
+Use the package manager [pip](https://pip.pypa.io/en/stable/) to install requirements.
 
 ```bash
 pip install requests
