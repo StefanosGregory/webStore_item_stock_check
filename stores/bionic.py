@@ -39,8 +39,10 @@ def check_inventory():
                   '%2Fe7Y9mENB9DOnfjR2HlilIsA07g%2Fczu6f0hZ95ivOL39PyBe%2BmDBZdQ%2FD1qBcy0YRnU2%2Bemf%2Fb6jaH4jEsVetp'
                   '%2Ft1GYufPS355HOS2mw758s%3D--VOEBByq8PKgINLK%2B--NjjRROtsKVLVSIadoqxNTg%3D%3D',
     }
-    ps5 = [0, 1]
-    flag = "Standard edition: "
+    ps5 = [0, 1, 2]
+    flag = ["Standard edition 1 game: ", "Standard edition: ", "Digital Edition: "]
+
+    index = 0
 
     for item in ps5:
         try:
@@ -48,16 +50,17 @@ def check_inventory():
             stock = response['products'][item]['cart_status']['message']
 
             if stock == "out_of_stock":
-                print(flag + bcolors.FAIL + "Out of stock" + bcolors.RESET)
+                print(flag[index] + bcolors.FAIL + "Out of stock" + bcolors.RESET)
             else:
-                print(flag + bcolors.OK + "In stock at Bionic" + bcolors.RESET)
+                print(flag[index] + bcolors.OK + "In stock at Bionic" + bcolors.RESET)
 
-                notify("PS5 " + flag + " in stock at Bionic")
+                notify("PS5 " + flag[index] + " in stock at Bionic")
 
-            flag = "Digital  edition: "
         except:
-            print(flag + bcolors.WARNING + "Error searching for item" + bcolors.RESET)
+            print(flag[index] + bcolors.WARNING + "Error searching for item" + bcolors.RESET)
 
-            notify("Error PS5 " + flag + " bionic")
+            notify("Error PS5 " + flag[index] + " bionic")
+
+        index += 1
 
     print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
