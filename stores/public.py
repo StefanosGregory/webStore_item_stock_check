@@ -1,38 +1,37 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*- 
-
-from tools.consoleBcolors import bcolors
-from tools.notify import notify
+# -*- coding: utf-8 -*-
 import requests
+from pythonConsoleConfigs.Font import Color
+
+from tools.log import cPrint
+from tools.notify import notify
 
 
 def check_inventory():
     # Stock Checker standard, digital
-    print("~Public:")
+    cPrint(["", "~Public:"], Color.MAGENTA)
 
-    ps5_link = "https://www.public-cyprus.com.cy/cy/common/updateProductInfo.jsp?product="
-    ps5 = ["prod10238545pp", "prod10810253pp", "prod13802366pp", "prod13923508pp"]
+    ps5_link = "https://www.public.cy/public/v1/mm/stockRules?skuId="
+    ps5 = ["1428499", "1530295", "1633212", "1629042"]
     ps5_names = ["Standard edition: ", "Digital  edition: ", "Ratchet  edition: ", "2 Games  edition: "]
-    
+
     for item in range(len(ps5)):
         try:
-            response = requests.get(ps5_link + ps5[item]).json()
-            stock = response['productInfo'][0]['stockRule']
+            response = requests.get(ps5_link + ps5[item])
 
-            if stock == "εξαντλήθηκε!" or stock == "προσωρινά εξαντλημένο":
-                print(ps5_names[item] + bcolors.FAIL + "Out of stock" + bcolors.RESET)
+            result_json = response.json()
+            stock_text = result_json['rules'][0]['deliveryRule']['displayText']
+
+            if stock_text == "εξαντλήθηκε" or stock_text == "προσωρινά εξαντλημένο":
+                cPrint([ps5_names[item], "Out of stock"], Color.RED)
             else:
-                print(ps5_names[item] + bcolors.OK + "In stock at Public" + bcolors.RESET)
-
+                cPrint([ps5_names[item], "In stock at Public"], Color.GREEN)
                 notify("PS5 " + ps5_names[item] + " in stock at Public")
 
         except:
-            print(ps5_names[item] + bcolors.WARNING + "Error searching for item" + bcolors.RESET)
-            
+            cPrint([ps5_names[item], "Error searching for item"], Color.YELLOW)
             # notify("Error PS5 " + ps5_names[item] + " public")
-
-    print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
-
+    cPrint(["", "~"*30], Color.MAGENTA)
 
 
-
+check_inventory()
