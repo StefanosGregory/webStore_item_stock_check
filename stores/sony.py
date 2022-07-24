@@ -1,15 +1,18 @@
 from bs4 import BeautifulSoup
 import requests
 import re
-from tools.consoleBcolors import bcolors
+
+from tools.log import cPrint
 from tools.notify import notify
+from pythonConsoleConfigs.Font import Color
 
 
 def check_inventory():
     # Stock Checker standard, digital
-    print("~Sony:")
+    cPrint(["", "~Sony:"], Color.MAGENTA)
 
-    ps5 = ["https://sonycentercy.com/playstation-5/2186-sony-playstation-5-0711719395003.html",    "https://sonycentercy.com/playstation-5/2187-sony-playstation-5-digital-edition-0711719395102.html"]
+    ps5 = ["https://sonycentercy.com/playstation-5/2186-sony-playstation-5-0711719395003.html",
+           "https://sonycentercy.com/playstation-5/2187-sony-playstation-5-digital-edition-0711719395102.html"]
     flag = "Standard edition: "
 
     for item in ps5:
@@ -18,16 +21,17 @@ def check_inventory():
             soup = BeautifulSoup(response, "html.parser")
             status = soup.body.findAll(text=re.compile("Out-of-Stock"))
             if status:
-                print(flag + bcolors.FAIL + "Out of stock" + bcolors.RESET)
+                cPrint([flag, "Out of stock"], Color.RED)
             else:
-                print(flag + bcolors.OK + "In stock at Sony" + bcolors.RESET)
-
+                cPrint([flag, "In stock at Sony"], Color.GREEN)
                 notify("PS5 " + flag + " in stock at Sony")
 
             flag = "Digital  edition: "
         except:
-            print(flag + bcolors.WARNING + "Error searching for item" + bcolors.RESET)
-
+            cPrint([flag, "Error searching for item"], Color.YELLOW)
             notify("Error PS5 " + flag + "sony")
 
-    print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+    cPrint(["", "~" * 30], Color.MAGENTA)
+
+
+check_inventory()
