@@ -1,13 +1,15 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import requests
-from tools.consoleBcolors import bcolors
+from pythonConsoleConfigs.Font import Color
+
+from tools.log import cPrint
 from tools.notify import notify
 
 
 def check_inventory():
     # Stock Checker standard, digital
-    print("~Bionic:")
+    cPrint(["", "~Bionic:"], Color.MAGENTA)
 
     ps5_link = "https://bionic.com.cy/products?keywords=playstation%205&order_by=price-desc&_=1617044011124"
     headers = {
@@ -39,8 +41,8 @@ def check_inventory():
                   '%2Fe7Y9mENB9DOnfjR2HlilIsA07g%2Fczu6f0hZ95ivOL39PyBe%2BmDBZdQ%2FD1qBcy0YRnU2%2Bemf%2Fb6jaH4jEsVetp'
                   '%2Ft1GYufPS355HOS2mw758s%3D--VOEBByq8PKgINLK%2B--NjjRROtsKVLVSIadoqxNTg%3D%3D',
     }
-    ps5 = [0, 1, 2]
-    flag = ["Standard edition 1 game: ", "Standard edition: ", "Digital Edition: "]
+    ps5 = [0, 1]
+    flag = ["Standard edition: ", "Digital  Edition: "]
 
     index = 0
 
@@ -50,17 +52,18 @@ def check_inventory():
             stock = response['products'][item]['cart_status']['message']
 
             if stock == "out_of_stock":
-                print(flag[index] + bcolors.FAIL + "Out of stock" + bcolors.RESET)
+                cPrint([flag[index], "Out of stock"], Color.RED)
             else:
-                print(flag[index] + bcolors.OK + "In stock at Bionic" + bcolors.RESET)
-
+                cPrint([flag[index], "In stock at Bionic"], Color.GREEN)
                 notify("PS5 " + flag[index] + " in stock at Bionic")
 
         except:
-            print(flag[index] + bcolors.WARNING + "Error searching for item" + bcolors.RESET)
-
+            cPrint([flag[index], "Error searching for item"], Color.YELLOW)
             notify("Error PS5 " + flag[index] + " bionic")
 
         index += 1
 
-    print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+    cPrint(["", "~" * 30], Color.MAGENTA)
+
+
+check_inventory()
